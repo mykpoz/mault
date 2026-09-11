@@ -1,3 +1,4 @@
+import { randomUUID } from "@magic-vault/shared";
 import { clsx, type ClassValue } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
 
@@ -10,7 +11,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function generateScanId(): string {
-  return crypto.randomUUID();
+  return randomUUID();
 }
 
 export function matchPercent(card: {
