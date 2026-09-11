@@ -22,14 +22,14 @@ import {
   type BinConfigFormValues,
 } from "@/schemas/sort-bins.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BinRuleGroup, DEFAULT_BIN_CAPACITY } from "@magic-vault/shared";
+import { BinRuleGroup, DEFAULT_BIN_CAPACITY, randomUUID } from "@magic-vault/shared";
 import { IconInfoCircle, IconLoader2 } from "@tabler/icons-react";
 import { useCallback, useEffect } from "react";
 import { Controller, useForm, type Resolver } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 function emptyRuleGroup(): BinRuleGroup {
-  return { id: crypto.randomUUID(), combinator: "and", conditions: [] };
+  return { id: randomUUID(), combinator: "and", conditions: [] };
 }
 
 export function BinConfigPanel() {

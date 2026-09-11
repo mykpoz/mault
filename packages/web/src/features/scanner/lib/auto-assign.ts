@@ -1,6 +1,7 @@
 import {
   evaluateCardBin,
   getCardValue,
+  randomUUID,
   type BinConfig,
   type BinRuleGroup,
   type FieldMeta,
@@ -35,11 +36,11 @@ export function findAutoAssignTarget(
   return {
     binNumber: nextOpen.binNumber,
     rules: {
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       combinator: "and",
       conditions: [
         {
-          id: crypto.randomUUID(),
+          id: randomUUID(),
           field: autoAssignField,
           operator: "equals",
           value,

@@ -5,6 +5,7 @@ import {
   BinSet,
   computeBinCount,
   DEFAULT_BIN_CAPACITY,
+  randomUUID,
   type RepackSlot,
 } from "@magic-vault/shared";
 
@@ -38,12 +39,12 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 function emptyRules(): BinRuleGroup {
-  return { id: crypto.randomUUID(), combinator: "and", conditions: [] };
+  return { id: randomUUID(), combinator: "and", conditions: [] };
 }
 
 function createEmptyConfig(binNumber: number): BinConfig {
   return {
-    guid: crypto.randomUUID(),
+    guid: randomUUID(),
     binNumber,
     rules: emptyRules(),
     cardLimit: DEFAULT_BIN_CAPACITY,
@@ -130,7 +131,7 @@ export function BinConfigsProvider({
           if (!set.isActive || !matchesGame(set, activeGameGuid)) return set;
           const idx = set.bins.findIndex((b) => b.binNumber === binNumber);
           const updated: BinConfig = {
-            guid: idx >= 0 ? set.bins[idx].guid : crypto.randomUUID(),
+            guid: idx >= 0 ? set.bins[idx].guid : randomUUID(),
             binNumber,
             rules: rules!,
             isCatchAll,

@@ -21,3 +21,5 @@ export * from "./constants/scryfall.constant";
 export * from "./constants/sort-bins.constant";
 
 export * from "./evaluate-bin";
+
+export * from "./lib/random-uuid";

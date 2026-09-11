@@ -1,3 +1,4 @@
+import "@/lib/crypto-polyfill";
 import { router } from "@/app/router";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "@/index.css";

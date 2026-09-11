@@ -1,4 +1,5 @@
 import type { BinRuleGroup } from "../interfaces/sort-bins.interface";
+import { randomUUID } from "../lib/random-uuid";
 
 export const SET_NAME_MAX_LENGTH = 50;
 export const CONDITION_STRING_MAX_LENGTH = 200;
@@ -21,7 +22,7 @@ export function createDefaultCatchAllOnlyBins(
     isCatchAll: i === binCount - 1,
     cardLimit: DEFAULT_BIN_CAPACITY,
     rules: {
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       combinator: "and" as const,
       conditions: [],
     } satisfies BinRuleGroup,
