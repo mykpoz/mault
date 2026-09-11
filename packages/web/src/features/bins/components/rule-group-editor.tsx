@@ -2,14 +2,19 @@ import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { ConditionRow } from "@/features/bins/components/condition-row";
 import type { RuleGroupEditorProps } from "@/lib/interfaces/bins";
-import { BinCondition, BinRuleGroup, isRuleGroup } from "@magic-vault/shared";
+import {
+  BinCondition,
+  BinRuleGroup,
+  isRuleGroup,
+  randomUUID,
+} from "@magic-vault/shared";
 import { IconPlus, IconTrash } from "@tabler/icons-react";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 function createCondition(): BinCondition {
   return {
-    id: crypto.randomUUID(),
+    id: randomUUID(),
     field: "rarity",
     operator: "in",
     value: [],
@@ -18,7 +23,7 @@ function createCondition(): BinCondition {
 
 function createGroup(): BinRuleGroup {
   return {
-    id: crypto.randomUUID(),
+    id: randomUUID(),
     combinator: "and",
     conditions: [createCondition()],
   };
