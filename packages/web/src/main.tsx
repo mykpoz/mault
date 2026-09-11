@@ -1,3 +1,4 @@
+import "@/lib/crypto-polyfill";
 import { AppShell } from "@/app/app-shell";
 import { loadMarketingPage } from "@/app/marketing-pages";
 import { routes } from "@/app/router";
