@@ -26,3 +26,5 @@ export * from "./constants/sort-bins.constant";
 export * from "./constants/sorters.constant";
 
 export * from "./evaluate-bin";
+
+export * from "./lib/random-uuid";

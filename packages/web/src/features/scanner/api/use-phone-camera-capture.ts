@@ -4,6 +4,7 @@ import {
   PRESENCE_TIMEOUT_MS,
 } from "@/lib/constants/timing";
 import type { PhoneCameraCaptureStatus } from "@/lib/interfaces/scanner";
+import { randomUUID } from "@magic-vault/shared";
 import type { PhoneCameraMessage, ScanRegion } from "@magic-vault/shared";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -90,7 +91,7 @@ export function usePhoneCameraCapture(collectionGuid: string | undefined) {
     if (status !== "connected") return Promise.resolve(null);
     return new Promise((resolve) => {
       resolvePending(null); // cancel any stale in-flight request first
-      const requestId = crypto.randomUUID();
+      const requestId = randomUUID();
       const timeout = setTimeout(() => {
         pendingCaptureRef.current = null;
         resolve(null);
