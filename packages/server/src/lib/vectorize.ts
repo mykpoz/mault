@@ -15,6 +15,10 @@ async function getModel(): Promise<SiglipVisionModel> {
     console.log("[vectorize] Loading SigLIP model...");
     modelPromise = SiglipVisionModel.from_pretrained(MODEL_NAME, {
       dtype: "q8",
+      session_options: {
+        intraOpNumThreads: 4,
+        interOpNumThreads: 1,
+      },
     });
     await modelPromise;
     console.log(
