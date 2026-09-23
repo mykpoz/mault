@@ -71,6 +71,17 @@ export async function acquireStream(
     } catch {}
   }
 
+  // width/height above are `ideal`, not `exact`, so the driver is free to
+  // negotiate a different mode - log what was granted, not what was asked for.
+  const settings = track?.getSettings();
+  if (settings) {
+    console.log(
+      `[camera] negotiated ${settings.width ?? "?"}x${settings.height ?? "?"} @ ${
+        settings.frameRate?.toFixed(1) ?? "?"
+      }fps`,
+    );
+  }
+
   return stream;
 }
 
