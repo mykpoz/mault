@@ -1,3 +1,4 @@
+import { randomUUID } from "@magic-vault/shared";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -46,7 +47,7 @@ function emptyValues(rule: SoundRuleDialogProps["rule"]): SoundRuleFormValues {
     clipGuid: rule?.clipGuid ?? "",
     isEnabled: rule?.isEnabled ?? true,
     rules: rule?.rules ?? {
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       combinator: "and",
       conditions: [],
     },

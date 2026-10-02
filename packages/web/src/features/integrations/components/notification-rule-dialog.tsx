@@ -1,3 +1,4 @@
+import { randomUUID } from "@magic-vault/shared";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -51,7 +52,7 @@ function emptyValues(
     roleId: rule?.roleId ?? null,
     isEnabled: rule?.isEnabled ?? true,
     rules: rule?.rules ?? {
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       combinator: "and",
       conditions: [],
     },

@@ -1,3 +1,4 @@
+import { randomUUID } from "@magic-vault/shared";
 import { Button } from "@/components/ui/button";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -25,11 +26,11 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 function emptyRuleGroup(): BinRuleGroup {
-  return { id: crypto.randomUUID(), combinator: "and", conditions: [] };
+  return { id: randomUUID(), combinator: "and", conditions: [] };
 }
 
 function createSlot(): RepackSlot {
-  return { id: crypto.randomUUID(), rule: emptyRuleGroup(), targetCount: 1 };
+  return { id: randomUUID(), rule: emptyRuleGroup(), targetCount: 1 };
 }
 
 export function RepackPanel() {
