@@ -1,3 +1,4 @@
+import { randomUUID } from "@magic-vault/shared";
 import { billingQueryOptions } from "@/features/billing/api/billing";
 import { useOrg } from "@/features/companies/api/use-organization";
 import { useEffectiveExecutionProvider } from "@/features/scanner/lib/onnx-runtime";
@@ -37,7 +38,7 @@ export const StationContext = createContext<StationContextValue | null>(null);
 
 function newStation(collectionGuid: string | null = null): StationState {
   return {
-    id: crypto.randomUUID(),
+    id: randomUUID(),
     deviceGuid: null,
     collectionGuid,
     cameraId: null,
