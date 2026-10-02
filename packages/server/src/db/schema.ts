@@ -173,6 +173,7 @@ export const devices = pgTable(
     setupCompletedAt: timestamp("setup_completed_at"),
     pipelinedFeed: boolean("pipelined_feed").notNull().default(false),
     autoConnect: boolean("auto_connect").notNull().default(false),
+    testOnConnect: boolean("test_on_connect").notNull().default(true),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   },
@@ -313,6 +314,8 @@ export const feederConfigs = pgTable(
     pulseDuration: integer("pulse_duration").notNull().default(80),
     pauseDuration: integer("pause_duration").notNull().default(50),
     settleDuration: integer("settle_duration").notNull().default(150),
+    reverseSpeed: integer("reverse_speed").notNull().default(333),
+    reverseDuration: integer("reverse_duration").notNull().default(0),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   },
@@ -477,6 +480,35 @@ export const soundRules = pgTable(
   ],
 ).enableRLS();
 
+export const notificationRules = pgTable(
+  "notification_rules",
+  {
+    id: serial().primaryKey(),
+    guid: uuid("guid").defaultRandom(),
+    name: text("name").notNull(),
+    gameId: integer("game_id")
+      .notNull()
+      .references(() => games.id, { onDelete: "cascade" }),
+    isEnabled: boolean("is_enabled").notNull().default(true),
+    rules: jsonb("rules").notNull(),
+    integration: text("integration").notNull().default("discord"),
+    channelId: text("channel_id"),
+    roleId: text("role_id"),
+    orgId: text("org_id").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => [
+    unique("notification_rules_guid_idx").on(table.guid),
+    index("notification_rules_org_game_idx").on(table.orgId, table.gameId),
+    crudPolicy({
+      role: authenticatedRole,
+      read: orgRls(table.orgId),
+      modify: orgRls(table.orgId),
+    }),
+  ],
+).enableRLS();
+
 export const orgSettings = pgTable(
   "org_settings",
   {
@@ -488,6 +520,9 @@ export const orgSettings = pgTable(
     discordNotifyOnScan: boolean("discord_notify_on_scan")
       .notNull()
       .default(false),
+    discordScanUseThreads: boolean("discord_scan_use_threads")
+      .notNull()
+      .default(true),
     ocrEnabled: boolean("ocr_enabled").notNull().default(false),
     sessionWrappedEnabled: boolean("session_wrapped_enabled")
       .notNull()
@@ -669,6 +704,8 @@ export const feederConfigAudit = pgTable(
     pulseDuration: integer("pulse_duration").notNull(),
     pauseDuration: integer("pause_duration").notNull(),
     settleDuration: integer("settle_duration").notNull(),
+    reverseSpeed: integer("reverse_speed").notNull().default(333),
+    reverseDuration: integer("reverse_duration").notNull().default(0),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => [

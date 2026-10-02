@@ -29,6 +29,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/lib/toast";
 import { useOrg } from "../api/use-organization";
+import { SETTINGS_PATHS } from "@/lib/constants/settings";
 
 function OrgBadge({
   initial,
@@ -40,15 +41,8 @@ function OrgBadge({
   return <span className={className}>{initial}</span>;
 }
 
-export function OrgSwitcher({
-  side = "right",
-  variant = "icon",
-}: {
-  side?: "right" | "top";
-  variant?: "icon" | "tab";
-}) {
+export function OrgSwitcher({ side = "right" }: { side?: "right" }) {
   const { t } = useTranslation("companies");
-  const { t: tCommon } = useTranslation("common");
   const { orgs, activeOrg, setActiveOrg } = useOrg();
   const { isImpersonating } = useImpersonation();
   const navigate = useNavigate();
@@ -74,45 +68,21 @@ export function OrgSwitcher({
   return (
     <>
       <DropdownMenu>
-        {variant === "tab" ? (
+        <div className="relative">
           <DropdownMenuTrigger
             render={
-              <button
-                type="button"
-                className="flex flex-col items-center gap-0.5 px-2 py-1 rounded-md transition-all active:scale-90 text-muted-foreground aria-expanded:text-foreground"
-              >
-                <span className="relative">
-                  <IconBuilding size={20} />
-                  {activeOrg && (
-                    <OrgBadge
-                      initial={activeOrg.name[0].toUpperCase()}
-                      className="pointer-events-none absolute -right-1.5 -top-1 grid size-3 place-items-center rounded-full bg-primary text-[0.5rem] font-bold leading-none text-primary-foreground"
-                    />
-                  )}
-                </span>
-                <span className="text-[10px] leading-none font-medium">
-                  {tCommon("nav.organization")}
-                </span>
-              </button>
+              <Button size="icon-lg" variant="ghost">
+                <IconBuilding />
+              </Button>
             }
           />
-        ) : (
-          <div className="relative">
-            <DropdownMenuTrigger
-              render={
-                <Button size="icon-lg" variant="ghost">
-                  <IconBuilding />
-                </Button>
-              }
+          {activeOrg && (
+            <OrgBadge
+              initial={activeOrg.name[0].toUpperCase()}
+              className="pointer-events-none absolute -right-1 -top-1 grid size-4 place-items-center rounded-full bg-primary text-[0.6rem] font-bold leading-none text-primary-foreground"
             />
-            {activeOrg && (
-              <OrgBadge
-                initial={activeOrg.name[0].toUpperCase()}
-                className="pointer-events-none absolute -right-1 -top-1 grid size-4 place-items-center rounded-full bg-primary text-[0.6rem] font-bold leading-none text-primary-foreground"
-              />
-            )}
-          </div>
-        )}
+          )}
+        </div>
         <DropdownMenuContent
           side={side}
           align="end"
@@ -142,7 +112,9 @@ export function OrgSwitcher({
                 <IconPlus size={14} />
                 {t("newOrganization")}
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate("/app/settings")}>
+              <DropdownMenuItem
+                onClick={() => navigate(SETTINGS_PATHS.organization)}
+              >
                 <IconSettings size={14} />
                 {t("orgSwitcher.manageOrganizations")}
               </DropdownMenuItem>

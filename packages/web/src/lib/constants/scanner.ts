@@ -1,4 +1,8 @@
-import type { ScannerStatus } from "@magic-vault/shared";
+import {
+  ALL_CARDS_QUERY,
+  EMPTY_CARD_FILTERS,
+} from "@/lib/constants/card-filters";
+import type { CollectionCardsQuery, ScannerStatus } from "@magic-vault/shared";
 
 export const SCANNABLE_STATUSES: ScannerStatus[] = [
   "scanning",
@@ -36,6 +40,16 @@ export const CAMERA_IDEAL_HEIGHT = 1080;
 export const JAM_TOAST_ID_PREFIX = "jam-module-";
 export const JAM_COMMAND_TIMEOUT_MS = 3000;
 export const JAM_CLEAR_DEVICE_TIMEOUT_MS = 10000;
+export const JAM_VERIFY_SAMPLES = 3;
+export const JAM_VERIFY_INTERVAL_MS = 750;
+export const SCAN_POSITION_MODULE = 1;
+export const MONITOR_OPEN_CARD_PARAM = "card";
+export const CARD_SETS_STALE_MS = 15 * 60 * 1000;
+export const CARD_SET_PICKER_LIMIT = 100;
+export const MONITOR_NEEDS_REVIEW_CARDS_QUERY: CollectionCardsQuery = {
+  ...ALL_CARDS_QUERY,
+  filters: { ...EMPTY_CARD_FILTERS, needsAttention: true },
+};
 export const SENSOR_BLOCKED_TOAST_ID = "test-sensor-blocked";
 export const SESSION_LOCK_ALERT_ID = "session-lock";
 export const ROUTE_TIMEOUT_MODULE_PATTERN = /no card detected at module (\d+)/;

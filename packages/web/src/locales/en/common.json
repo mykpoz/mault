@@ -15,7 +15,9 @@
     "collapseSidebar": "Collapse sidebar ([)",
     "expandSidebar": "Expand sidebar ([)",
     "alerts": "Alerts",
-    "sounds": "Sounds"
+    "sounds": "Sounds",
+    "integrations": "Integrations",
+    "more": "More"
   },
   "alerts": {
     "dismiss": "Dismiss",
@@ -180,5 +182,9 @@
       "scanCycleFoil": "Cycle foil type",
       "scanClearDevice": "Clear device"
     }
+  },
+  "mobileMenu": {
+    "back": "Back",
+    "theme": "Theme"
   }
 }

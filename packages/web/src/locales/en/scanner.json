@@ -95,7 +95,8 @@
     "pushBlocked": {
       "title": "Pusher blocked",
       "description": "A card is on module {{module}}'s platform. Lower its side paddle before moving the pusher."
-    }
+    },
+    "deviceReadyNoTest": "Device ready (self-test skipped)"
   },
   "sessionMonitor": {
     "connectionLost": "Connection to session lost."
@@ -220,7 +221,12 @@
     "autoFeedOnTooltip": "Auto-feed on, next card feeds automatically after each scan",
     "autoFeedOffTooltip": "Auto-feed off, feed each card manually",
     "clearDeviceTooltip": "Clear device (opens all bottom paddles)",
-    "foilTooltip": "Foil type for scanned cards: {{type}}"
+    "foilTooltip": "Foil type for scanned cards: {{type}}",
+    "setTooltip": "Set for scanned cards: {{set}}",
+    "anySet": "Any set",
+    "setSearchPlaceholder": "Search sets",
+    "noSets": "No sets found",
+    "setHint": "Scanned cards use their printing from this set when one exists."
   },
   "scannerDebug": {
     "heading": "Debug",
@@ -291,7 +297,9 @@
     "noCameraTitle": "No camera connected",
     "connectCameraButton": "Connect camera",
     "waitingForPhoneTitle": "Waiting for your phone",
-    "showQrCode": "Show QR code"
+    "showQrCode": "Show QR code",
+    "sensorBlocked": "Module {{module}}'s sensor sees a card, so the self-test didn't run.",
+    "resolveSensorBlocked": "Resolve"
   },
   "sessionErrorsPanel": {
     "heading": "Errors"
@@ -329,7 +337,12 @@
     "ocrSetLine": "Set line read: {{text}}",
     "ocrEmpty": "nothing",
     "ocrMatchedName": "Closest card name: {{name}} (similarity {{score}}), but no printing was close enough.",
-    "ocrNoName": "No card name was close enough to the text read."
+    "ocrNoName": "No card name was close enough to the text read.",
+    "identify": "Identify card",
+    "identifyTitle": "Identify this card",
+    "identifyDescription": "Pick the card in this scan. It's added to the collection with this photo, in the bin it was sorted into.",
+    "identified": "{{name}} added to the collection.",
+    "identifyFailed": "Couldn't add the card. Try again."
   },
   "binStatusMeter": {
     "heading": "Bin Levels",
@@ -355,11 +368,7 @@
     "connectFailed": "Could not connect.",
     "noCardsScannedYet": "No cards scanned yet.",
     "noCardsMatchSearch": "No cards match the search query.",
-    "isWatchingTooltip": "{{name}} is watching",
-    "viewCards_one": "View {{count}} card",
-    "viewCards_other": "View {{count}} cards",
-    "viewCardsEmpty": "View Cards",
-    "scannedCardsTitle": "Scanned Cards"
+    "isWatchingTooltip": "{{name}} is watching"
   },
   "monitorSessions": {
     "yourSession": "Your session",
@@ -373,7 +382,9 @@
     "title": "Session Monitor",
     "subtitle": "Join a live scanning session",
     "noSessionsFound": "No sessions found",
-    "noSessionsHint": "Active sessions will appear here"
+    "noSessionsHint": "Active sessions will appear here",
+    "liveNow": "Live now",
+    "allCollections": "All collections"
   },
   "binLimitDialog": {
     "title": "Bin {{number}} is full",
@@ -445,5 +456,24 @@
     "title": "In-browser card detection stopped working",
     "description": "The AI detection engine crashed in this tab. Scans are being matched on the server for now, which is slower and skips corner detection. Reload the page to fix it.",
     "reload": "Reload"
+  },
+  "mobileMonitor": {
+    "tabCards": "Cards",
+    "tabActivity": "Activity",
+    "cards": "Cards",
+    "searchPlaceholder": "Search cards",
+    "needsReview": "Needs review",
+    "groupDuplicates": "Group copies",
+    "back": "Back to sessions",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "bin": "Bin {{number}}",
+    "noActivity": "Nothing scanned yet. Scans show up here as they happen.",
+    "status": {
+      "connected": "Live",
+      "connecting": "Connecting…",
+      "error": "Offline",
+      "closed": "Offline"
+    }
   }
 }

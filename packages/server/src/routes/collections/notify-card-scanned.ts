@@ -11,6 +11,8 @@ import {
   buildSortingLogicSummary,
   sendDiscordNotification,
 } from "../../lib/discord";
+import { postMatchingNotificationRules } from "../../lib/notification-rules";
+import { enqueueScanNotification } from "../../lib/scan-notification-queue";
 
 export interface NotifyCardScannedParams {
   orgId: string;
@@ -25,11 +27,6 @@ export interface NotifyCardScannedParams {
   capturedImageUrl?: string;
 }
 
-// Fire-and-forget: posts the scanned card (and, for a brand-new scan
-// session, a sorting-logic summary) to the org's configured Discord
-// channel. No-ops if the org hasn't turned on scan notifications. Errors
-// are logged, never surfaced to the caller - a Discord outage shouldn't
-// fail the scan.
 export function notifyCardScanned(params: NotifyCardScannedParams): void {
   const {
     orgId,
@@ -44,14 +41,40 @@ export function notifyCardScanned(params: NotifyCardScannedParams): void {
     capturedImageUrl,
   } = params;
 
-  db.query.orgSettings
-    .findFirst({
+  enqueueScanNotification(async () => {
+    const row = await db.query.orgSettings.findFirst({
       where: eq(orgSettings.orgId, orgId),
-      columns: { discordNotifyOnScan: true, priceSource: true },
-    })
-    .then(async (row) => {
-      if (!row?.discordNotifyOnScan) return;
+      columns: {
+        discordGuildId: true,
+        discordNotifyOnScan: true,
+        priceSource: true,
+      },
+    });
+    if (!row?.discordGuildId) return;
 
+    const { embed, referenceImageUrl } = buildCardScannedEmbed(card, {
+      isFoil,
+      foilType,
+      collectionName,
+      gameName,
+      collectionGuid,
+      capturedImageDataUrl: capturedImageUrl,
+      priceSource: toPriceSource(row.priceSource),
+    });
+
+    const ruleNotifications = postMatchingNotificationRules({
+      orgId,
+      gameId,
+      card,
+      scan: { isFoil, foilType },
+      embed,
+      attachmentDataUrl: capturedImageUrl,
+      secondaryImageUrl: referenceImageUrl,
+    }).catch((err) => {
+      console.error("[discord] Failed to post notification rules:", err);
+    });
+
+    if (row.discordNotifyOnScan) {
       if (isNewSession) {
         const sortingLogicSummary = await buildSortingLogicSummary(
           orgId,
@@ -70,16 +93,7 @@ export function notifyCardScanned(params: NotifyCardScannedParams): void {
         );
       }
 
-      const { embed, referenceImageUrl } = buildCardScannedEmbed(card, {
-        isFoil,
-        foilType,
-        collectionName,
-        gameName,
-        collectionGuid,
-        capturedImageDataUrl: capturedImageUrl,
-        priceSource: toPriceSource(row.priceSource),
-      });
-      void sendDiscordNotification(
+      await sendDiscordNotification(
         orgId,
         embed,
         "scan",
@@ -87,8 +101,8 @@ export function notifyCardScanned(params: NotifyCardScannedParams): void {
         referenceImageUrl,
         collectionGuid,
       );
-    })
-    .catch((err) => {
-      console.error("[discord] Failed to check discordNotifyOnScan:", err);
-    });
+    }
+
+    await ruleNotifications;
+  });
 }

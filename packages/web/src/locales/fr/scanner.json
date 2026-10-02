@@ -95,7 +95,8 @@
     "pushBlocked": {
       "title": "Poussoir bloqué",
       "description": "Une carte se trouve sur la plateforme du module {{module}}. Abaisse d'abord sa palette latérale avant de déplacer le poussoir."
-    }
+    },
+    "deviceReadyNoTest": "Appareil prêt (autotest ignoré)"
   },
   "sessionMonitor": {
     "connectionLost": "Connexion à la session perdue."
@@ -220,7 +221,12 @@
     "autoFeedOnTooltip": "Alimentation auto activée, la prochaine carte est alimentée automatiquement après chaque scan",
     "autoFeedOffTooltip": "Alimentation auto désactivée, alimenter chaque carte manuellement",
     "clearDeviceTooltip": "Vider l'appareil (ouvre toutes les trappes inférieures)",
-    "foilTooltip": "Type de foil des cartes scannées : {{type}}"
+    "foilTooltip": "Type de foil des cartes scannées : {{type}}",
+    "setTooltip": "Extension des cartes scannées : {{set}}",
+    "anySet": "N'importe quelle extension",
+    "setSearchPlaceholder": "Rechercher une extension",
+    "noSets": "Aucune extension trouvée",
+    "setHint": "Les cartes scannées utilisent leur impression de cette extension lorsqu'elle existe."
   },
   "scannerDebug": {
     "heading": "Débogage",
@@ -291,7 +297,9 @@
     "noCameraTitle": "Aucune caméra connectée",
     "connectCameraButton": "Connecter la caméra",
     "waitingForPhoneTitle": "En attente de ton téléphone",
-    "showQrCode": "Afficher le code QR"
+    "showQrCode": "Afficher le code QR",
+    "sensorBlocked": "Le capteur du module {{module}} détecte une carte, l'autotest n'a donc pas été lancé.",
+    "resolveSensorBlocked": "Résoudre"
   },
   "sessionErrorsPanel": {
     "heading": "Erreurs"
@@ -329,7 +337,12 @@
     "ocrSetLine": "Ligne d'extension lue : {{text}}",
     "ocrEmpty": "rien",
     "ocrMatchedName": "Nom de carte le plus proche : {{name}} (similarité {{score}}), mais aucune impression n'était assez proche.",
-    "ocrNoName": "Aucun nom de carte n'était assez proche du texte lu."
+    "ocrNoName": "Aucun nom de carte n'était assez proche du texte lu.",
+    "identify": "Identifier la carte",
+    "identifyTitle": "Identifier cette carte",
+    "identifyDescription": "Choisis la carte de ce scan. Elle est ajoutée à la collection avec cette photo, dans le bac où elle a été triée.",
+    "identified": "{{name}} a été ajoutée à la collection.",
+    "identifyFailed": "Impossible d'ajouter la carte. Réessaie."
   },
   "binStatusMeter": {
     "heading": "Niveaux des bacs",
@@ -355,11 +368,7 @@
     "connectFailed": "Impossible de se connecter.",
     "noCardsScannedYet": "Aucune carte scannée pour le moment.",
     "noCardsMatchSearch": "Aucune carte ne correspond à la recherche.",
-    "isWatchingTooltip": "{{name}} regarde",
-    "viewCards_one": "Voir {{count}} carte",
-    "viewCards_other": "Voir {{count}} cartes",
-    "viewCardsEmpty": "Voir les cartes",
-    "scannedCardsTitle": "Cartes scannées"
+    "isWatchingTooltip": "{{name}} regarde"
   },
   "monitorSessions": {
     "yourSession": "Ta session",
@@ -373,7 +382,9 @@
     "title": "Surveillance de session",
     "subtitle": "Rejoindre une session de scan en direct",
     "noSessionsFound": "Aucune session trouvée",
-    "noSessionsHint": "Les sessions actives apparaîtront ici"
+    "noSessionsHint": "Les sessions actives apparaîtront ici",
+    "liveNow": "En direct",
+    "allCollections": "Toutes les collections"
   },
   "binLimitDialog": {
     "title": "Le bac {{number}} est plein",
@@ -445,5 +456,24 @@
     "title": "La détection des cartes dans le navigateur ne fonctionne plus",
     "description": "Le moteur de détection IA a planté dans cet onglet. Les scans sont pour l'instant comparés sur le serveur, ce qui est plus lent et saute la détection des coins. Recharge la page pour corriger ça.",
     "reload": "Recharger"
+  },
+  "mobileMonitor": {
+    "tabCards": "Cartes",
+    "tabActivity": "Activité",
+    "cards": "Cartes",
+    "searchPlaceholder": "Rechercher des cartes",
+    "needsReview": "À vérifier",
+    "groupDuplicates": "Regrouper les copies",
+    "back": "Retour aux sessions",
+    "previousPage": "Page précédente",
+    "nextPage": "Page suivante",
+    "bin": "Bac {{number}}",
+    "noActivity": "Rien n'a encore été scanné. Les scans apparaissent ici en direct.",
+    "status": {
+      "connected": "En direct",
+      "connecting": "Connexion…",
+      "error": "Hors ligne",
+      "closed": "Hors ligne"
+    }
   }
 }

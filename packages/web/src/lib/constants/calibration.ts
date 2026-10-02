@@ -1,5 +1,6 @@
 import type {
   BinHeightPreset,
+  DeviceToggleKey,
   ModuleDelayField,
   ServoConfig,
   SetupIntroPart,
@@ -87,6 +88,7 @@ export const FEEDER_DURATION_SLIDER_MAX = 10_000;
 export const FEEDER_PULSE_DURATION_SLIDER_MAX = 500;
 export const FEEDER_PAUSE_DURATION_SLIDER_MAX = 1_000;
 export const FEEDER_SETTLE_DURATION_SLIDER_MAX = 2_000;
+export const FEEDER_REVERSE_DURATION_SLIDER_MAX = 1_000;
 export const PADDLE_CLOSE_DELAY_SLIDER_MAX = 1_000;
 export const PUSHER_HOLD_DURATION_SLIDER_MAX = 1_000;
 
@@ -166,4 +168,10 @@ export const SETUP_INTRO_PARTS: { key: SetupIntroPart; icon: Icon }[] = [
   { key: "bottom", icon: IconArrowBarToDown },
   { key: "paddle", icon: IconColumns2 },
   { key: "pusher", icon: IconArrowsHorizontal },
+];
+
+export const DEVICE_TOGGLE_KEYS: DeviceToggleKey[] = [
+  "autoConnect",
+  "testOnConnect",
+  "pipelinedFeed",
 ];

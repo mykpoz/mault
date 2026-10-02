@@ -15,7 +15,9 @@
     "collapseSidebar": "Réduire la barre latérale ([)",
     "expandSidebar": "Développer la barre latérale ([)",
     "alerts": "Alertes",
-    "sounds": "Sons"
+    "sounds": "Sons",
+    "integrations": "Intégrations",
+    "more": "Plus"
   },
   "alerts": {
     "dismiss": "Ignorer",
@@ -180,5 +182,9 @@
       "scanCycleFoil": "Changer le type de foil",
       "scanClearDevice": "Vider l'appareil"
     }
+  },
+  "mobileMenu": {
+    "back": "Retour",
+    "theme": "Thème"
   }
 }

@@ -1,4 +1,4 @@
-import type { PlayingCardWithDistance } from "./card.interface";
+import type { PlayingCard, PlayingCardWithDistance } from "./card.interface";
 import type { ScannedCard } from "./scanner.interface";
 
 export interface CardFilters {
@@ -74,4 +74,12 @@ export interface BinContentCard {
   binNumber: number;
   scannedAt: number;
   card: PlayingCardWithDistance;
+  isFoil?: boolean;
+  foilType?: string;
+}
+
+export interface IdentifyUnmatchedCardRequest {
+  card: PlayingCard;
+  isFoil?: boolean;
+  foilType?: string | null;
 }
