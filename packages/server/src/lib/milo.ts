@@ -10,7 +10,18 @@ async function getSession(): Promise<InferenceSession> {
     sessionPromise = (async () => {
       const modelPath = await resolveMiloModelPath();
       console.log("[milo] Loading Milo embedder model...");
-      const session = await InferenceSession.create(modelPath);
+      const wantCuda = process.env.MILO_DEVICE === "cuda";
+      let session;
+      try {
+        session = await InferenceSession.create(modelPath, {
+          executionProviders: wantCuda ? ["cuda", "cpu"] : ["cpu"],
+        });
+        console.log(`[milo] session created (${wantCuda ? "cuda" : "cpu"})`);
+      } catch (e) {
+        if (!wantCuda) throw e;
+        console.error("[milo] CUDA session failed, falling back to CPU:", e);
+        session = await InferenceSession.create(modelPath);
+      }
       console.log("[milo] Milo model loaded (128 dimensions)");
       return session;
     })();
